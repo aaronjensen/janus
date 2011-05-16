@@ -93,7 +93,7 @@ def vim_plugin_task(name, repo=nil)
           else
             subdirs.each do |subdir|
               if File.exists?(subdir)
-                sh "cp -rf #{subdir}/* #{cwd}/#{subdir}/"
+                sh "cp -RfL #{subdir}/* #{cwd}/#{subdir}/"
               end
             end
           end
@@ -120,6 +120,10 @@ def vim_plugin_task(name, repo=nil)
   task :default => name
 end
 
+def skip_vim_plugin(name)
+  Rake::Task[:default].prerequisites.delete(name)
+end
+
 vim_plugin_task "ack.vim",          "git://github.com/mileszs/ack.vim.git"
 vim_plugin_task "color-sampler",    "git://github.com/vim-scripts/Color-Sampler-Pack.git"
 vim_plugin_task "conque",           "http://conque.googlecode.com/files/conque_1.1.tar.gz"
@@ -134,6 +138,7 @@ vim_plugin_task "nerdcommenter",    "git://github.com/ddollar/nerdcommenter.git"
 vim_plugin_task "surround",         "git://github.com/tpope/vim-surround.git"
 vim_plugin_task "taglist",          "git://github.com/vim-scripts/taglist.vim.git"
 vim_plugin_task "vividchalk",       "git://github.com/tpope/vim-vividchalk.git"
+vim_plugin_task "solarized",        "git://github.com/altercation/vim-colors-solarized.git"
 vim_plugin_task "supertab",         "git://github.com/ervandew/supertab.git"
 vim_plugin_task "cucumber",         "git://github.com/tpope/vim-cucumber.git"
 vim_plugin_task "textile",          "git://github.com/timcharper/textile.vim.git"
@@ -158,8 +163,11 @@ vim_plugin_task "vim-jade",         "git://github.com/digitaltoad/vim-jade.git"
 vim_plugin_task "Indent-Guides",    "git://github.com/vim-scripts/Indent-Guides.git"
 vim_plugin_task "vim-sass-status",  "git://github.com/aaronjensen/vim-sass-status.git"
 
-vim_plugin_task "command_t",        "git://github.com/wincent/Command-T.git" do
-  sh "find ruby -name '.gitignore' | xargs rm"
+vim_plugin_task "hammer",           "git://github.com/robgleeson/hammer.vim.git" do
+  sh "gem install github-markup redcarpet"
+end
+
+vim_plugin_task "command_t",        "http://s3.wincent.com/command-t/releases/command-t-1.2.1.vba" do
   Dir.chdir "ruby/command-t" do
     if File.exists?("/usr/bin/ruby1.8") # prefer 1.8 on *.deb systems
       sh "/usr/bin/ruby1.8 extconf.rb"
