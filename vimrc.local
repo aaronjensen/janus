@@ -13,6 +13,16 @@ map <C-j> <C-w>j
 map <C-k> <C-w>k
 map <C-l> <C-w>l
 
+function! SaveIfModified()
+  if &modified
+    :w
+  endif
+endfunction
+
+"key mapping for error navigation
+nmap <D-]> :call SaveIfModified()<CR>:cnext<CR>
+nmap <D-[> :call SaveIfModified()<CR>:cprev<CR>
+
 nmap <Leader>rc :silent !touch features/step_definitions/web_steps.rb<CR>
 map <Leader><D-t> :CommandTFlush<CR>:CommandT<CR>
 nmap <Leader><tab> :CommandTBuffer<CR>
