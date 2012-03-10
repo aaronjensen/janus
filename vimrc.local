@@ -27,8 +27,9 @@ nmap <Leader>rc :silent !touch features/step_definitions/web_steps.rb<CR>
 map <Leader><D-t> :CommandTFlush<CR>:CommandT<CR>
 nmap <Leader><tab> :CommandTBuffer<CR>
 
-set exrc
-set secure
+"set exrc
+"set secure
+set wildignore+=public/javascripts/compiled,*.css,tmp,*.orig,*.jpg,*.png,*.gif,solr,log
 
 let g:indenthlinfertabmode = 1
 
