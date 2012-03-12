@@ -1,9 +1,0 @@
-color molokai
-"set guifont=Menlo:h14
-set guifont=Inconsolata-g:h14
-
-macmenu &File.Close key=<nop>
-map <D-w> :BD<cr>
-
-set guioptions-=L
-set guioptions-=r
